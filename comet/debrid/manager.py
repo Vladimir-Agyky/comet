@@ -2,9 +2,12 @@ import hashlib
 
 import aiohttp
 
+from .realdebrid import RealDebrid
 from .stremthru import StremThru
+from .unlocker import Unlocker
 
 debrid_services = {
+    "unlocker": {"extension": "UL"},
     "realdebrid": {"extension": "RD"},
     "alldebrid": {"extension": "AD"},
     "premiumize": {"extension": "PM"},
@@ -74,14 +77,22 @@ def get_debrid(
     debrid_api_key: str,
     ip: str,
 ):
-    if debrid_service != "torrent":
-        return StremThru(
-            session,
-            video_id,
-            media_only_id,
-            build_stremthru_token(debrid_service, debrid_api_key),
-            ip,
-        )
+    if debrid_service == "torrent":
+        return
+
+    if debrid_service == "realdebrid":
+        return RealDebrid(session, video_id, media_only_id, debrid_api_key, ip)
+
+    if debrid_service == "unlocker":
+        return Unlocker(session, video_id, media_only_id, debrid_api_key, ip)
+
+    return StremThru(
+        session,
+        video_id,
+        media_only_id,
+        build_stremthru_token(debrid_service, debrid_api_key),
+        ip,
+    )
 
 
 async def retrieve_debrid_availability(

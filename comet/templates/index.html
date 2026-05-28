@@ -591,6 +591,12 @@
             referralUrl: "http://real-debrid.com/?id=16161532",
             helpText: "Format: `api-key`"
           },
+          unlocker: {
+            name: "Unlocker",
+            apiKeyUrl: null,
+            referralUrl: null,
+            helpText: "Format: `api-key`"
+          },
           torbox: {
             name: "TorBox",
             apiKeyUrl: "https://torbox.app/settings",
@@ -697,6 +703,7 @@
               <sl-input
                 class="debrid-api-key"
                 value="${apiKey}"
+                label="API Key"
                 placeholder="Enter API key"
                 size="small"
                 type="password"
@@ -764,6 +771,8 @@
           linksContainer.innerHTML = "";
 
           if (info) {
+            apiKeyInput.label = `${info.name} API Key`;
+            apiKeyInput.placeholder = `Enter ${info.name} API key`;
             apiKeyInput.helpText = info.helpText;
 
             if (info.referralUrl) {

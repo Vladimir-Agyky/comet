@@ -175,6 +175,8 @@ class AppSettings(BaseSettings):
     DEBRID_ACCOUNT_SCRAPE_MAX_MATCH_ITEMS: int = 1500
     DEBRID_ACCOUNT_SCRAPE_INITIAL_WARM_TIMEOUT: float = 5.0
     STREMTHRU_URL: Optional[str] = "https://stremthru.13377001.xyz"
+    REALDEBRID_BASE_URL: Optional[str] = "https://api.real-debrid.com/rest/1.0/"
+    UNLOCKER_BASE_URL: Optional[str] = "https://unlock.agyky.com/rest/1.0/"
     DISABLE_TORRENT_STREAMS: Optional[bool] = False
     TORRENT_DISABLED_STREAM_NAME: Optional[str] = "[INFO] Comet"
     TORRENT_DISABLED_STREAM_DESCRIPTION: Optional[str] = (
@@ -398,6 +400,8 @@ class AppSettings(BaseSettings):
         "JACKETT_URL",
         "PROWLARR_URL",
         "PUBLIC_BASE_URL",
+        "REALDEBRID_BASE_URL",
+        "UNLOCKER_BASE_URL",
     )
     def normalize_urls(cls, v):
         if isinstance(v, str):
@@ -989,6 +993,7 @@ rtn_ranking_default = DefaultRanking()
 
 VALID_DEBRID_SERVICES = [
     "realdebrid",
+    "unlocker",
     "alldebrid",
     "premiumize",
     "torbox",

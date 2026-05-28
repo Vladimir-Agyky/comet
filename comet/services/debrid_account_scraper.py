@@ -8,7 +8,7 @@ from comet.core.database import (_debrid_account_snapshot_ttl,
 from comet.core.execution import get_executor
 from comet.core.logger import logger
 from comet.core.models import settings
-from comet.debrid.manager import build_account_key_hash
+from comet.debrid.manager import build_account_key_hash, get_debrid
 from comet.debrid.stremthru import StremThru
 from comet.services.filtering import filter_worker
 from comet.services.lock import DistributedLock
@@ -179,7 +179,7 @@ async def _sync_single_account(
     ip: str,
     account_key_hash: str,
 ):
-    client = StremThru(session, "", "", f"{service}:{api_key}", ip)
+    client = get_debrid(session, "", "", service, api_key, ip)
     synced_at = time.time()
 
     magnets = await _fetch_all_magnets(
